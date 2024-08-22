@@ -1,0 +1,105 @@
+{% extends 'navigation.html' %}
+
+{% block body %}
+{% load static %}
+<style>
+/* Custom CSS styles */
+.image {
+    width: 100%;
+    height: 600px;
+    background: url("{% static 'images/note1.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.transparentbox {
+    background-color: rgba(36, 85, 129, 0.519); /* Semi-transparent white background */
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text-heading {
+    font-size: 42px;
+    color: #CAE9FF;
+    margin-bottom: 10px;
+}
+
+.text-subheading {
+    font-size: 20px; /* Adjusted font size */
+    color: #BEE9E8;/* Adjusted color */
+    font-style: italic; /* Added italic style */
+}
+
+.feature {
+    background-color: #f8f9fa;
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 40px;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.feature-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.feature-description {
+    font-size: 16px;
+    color: #555;
+}
+
+</style>
+
+<div class="image">
+    <div class="transparentbox">
+        <p class="text-heading">Welcome to EduNotesHub Notes Sharing App</p>
+        <p class="text-subheading">Join our platform where teachers can upload and students can access notes tailored for specific branches</p>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="feature">
+                <i class="fas fa-cloud-upload-alt feature-icon"></i>
+                <p class="feature-title">Teacher Upload</p>
+                <p class="feature-description">Teachers can upload study notes for specific branches they teach.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature">
+                <i class="fas fa-search feature-icon"></i>
+                <p class="feature-title">Student Access</p>
+                <p class="feature-description">Students from the respective branches can access uploaded notes.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature">
+                <i class="fas fa-download feature-icon"></i>
+                <p class="feature-title">Easy Download</p>
+                <p class="feature-description">Download notes instantly and study at your convenience.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'teach_nav.html' %}
+{% block body %}
+{% load static %}
+
+<div class="container mt-5">
+    <h2 class="text-center">Upload Notes</h2>
+            <HR>
+    <div class="row">
+        
+        <div class="col-sm-6">
+            
+                
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Subject</label>
+                <input type="text" class ="form-control" placeholder="Enter Subject" name="subject">
+                <label>Notes File</label>
+                <input type="file" class ="form-control" name="notesfile">
+                <label>File Type</label><br>
+                <select class="form-control" name="filetype">
+                    <option value="PDF">--- Select File ---</option>
+                    <option value="PDF">PDF</option>
+                    <option value="PPT">PPT</option>
+                    <option value="DOC/DOCX">DOC/DOCX</option>
+                    <option value="TXT">TXT</option>
+                    <option value="Image">Image</option>
+                    <option value="ZIP/RAR">ZIP/RAR</option>
+                </select>
+
+                <label>Description</label>
+                <textarea class="form-control" rows="3" name="description"></textarea>
+                
+                <input type="submit" class="btn btn-danger mt-2" value="Submit">
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <img src="{% static 'images/upload notes.png' %}" style="width: 90%; height: 500px" >
+
+               
+        </div>
+    </div>
+</div>
+
+
+{% if error == "no" %}
+<script>
+	alert('Notes Uploaded Successfully');
+	
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+	alert('Something went wrong, Try Again');
+</script>
+
+{% endif %}
+{% endblock %}
