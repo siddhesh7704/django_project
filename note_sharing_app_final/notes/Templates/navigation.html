@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <title>Notes Sharing Site</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+  <style>
+    /* Adjust sidebar styles */
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: -250px; /* Adjusted initial position */
+      background-color:#1B4965;
+      overflow-x: hidden;
+      padding-top: 50px; /* Adjusted padding */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Added box shadow */
+      transition: left 0.5s; /* Added smooth transition */
+    }
+
+    .sidebar a {
+      padding: 20px 15px; /* Adjusted padding */
+      text-decoration: none;
+      font-size: 20px;
+      color: #CAE9FF;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #BEE9E8;
+      color: #006494; /* Changed hover text color */
+    }
+
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+      margin-left: 0; /* Adjusted initial position */
+      background-color: rgba(59, 109, 150, 0.723); /* Added background color */
+    }
+    
+    /* Adjust the menu bar button styles */
+    #menu-btn {
+      position: fixed;
+      top: 10px; /* Adjusted top position */
+      left: 10px; /* Adjusted left position */
+      z-index: 999; /* Ensure it's above other content */
+    }
+  </style>
+</head>
+<body > <!-- Added background color for the whole window -->
+  <div class="sidebar" id="mySidebar">
+    <a href="{% url 'index' %}">HOME</a>
+    <a href="{% url 'contact' %}">CONTACT</a>
+    <a href="{% url 'login' %}">LOGIN</a>
+  </div>
+  
+  <!-- Page content -->
+  <div id="main">
+    <button id="menu-btn" class="btn btn-primary" onclick="toggleNav()"><i class="fas fa-bars"></i></button>
+    <h3 style="padding: 4px 0; margin-left: 40px;">
+      <span style="color: #d0eafc; font-weight: bold;">EduNotesHub</span>
+    </h3>
+    <!-- Your main content goes here -->
+    {% block body %}
+    {% endblock %}
+  </div>
+  
+  <!-- Welcome page content -->
+  
+  <script>
+    let sidebarOpen = false;
+    const sidebar = document.getElementById("mySidebar");
+    const mainContent = document.getElementById("main");
+
+    function toggleNav() {
+      sidebarOpen = !sidebarOpen;
+      if (sidebarOpen) {
+        openNav();
+      } else {
+        closeNav();
+      }
+    }
+
+    function openNav() {
+      sidebar.style.left = "0";
+      mainContent.style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+      sidebar.style.left = "-250px";
+      mainContent.style.marginLeft= "0";
+    }
+  </script>
+</body>
+</html>

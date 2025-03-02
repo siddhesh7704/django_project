@@ -1,0 +1,109 @@
+{% extends 'teach_nav.html' %}
+{% block body %}
+{% load static %}
+<style>
+  /* styles.css */
+  /* Teacher Info */
+  .teacher-info {
+    background-color: #74c69d; /* Light Green */
+    color: #fff; /* White text */
+    border-radius: 4px;
+    padding: 15px;
+    min-height: 730px; /* Minimum height for the teacher-info div */
+    font-size: 20px; /* Increased font size */
+  }
+
+  /* Table Styles */
+  .custom-table th,
+  .custom-table td {
+    text-align: center;
+    vertical-align: middle;
+   
+  }
+
+  .custom-table tbody tr:nth-child(even) {
+    background-color: #b7e4c7; /* Lighter Green */
+  }
+
+  .custom-table tbody tr:hover {
+    background-color: #8ecae6; /* Light Blue on hover */
+  }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to custom CSS file -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <!-- Left corner: Teacher name and ID -->
+      <div class="col-md-3">
+        <div class="teacher-info" id="teacherInfo">
+          <h4 style="margin-top: 70px; font-size: 35px;">Welcome {{request.user.first_name}} {{request.user.last_name}}</h4>
+          <p style="margin-top: 10px;">Teacher ID: {{data.teachID}}</p>
+        </div>
+      </div>
+
+      <!-- Middle: Table of files -->
+      <div class="col-md-9">
+        <div class="container mt-5">
+          <h2 class="text-center" style="color: #3f37c9;">Uploaded Notes</h2>
+          <hr>
+          <table id="example" class="table table-striped table-bordered custom-table">
+            <thead style="background-color: #73bfb8; color: #fff;"> <!-- Blue header with white text -->
+              <tr>
+                <th>Sr.No</th>
+                <th>Uploading Date</th>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>Download Notes</th>
+                <th>File Type</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in notes %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.uploadingdate }}</td>
+                <td>{{ i.subject }}</td>
+                <td>{{ i.description }}</td>
+                <td><a href="{{ i.notesfile.url }}" download><i class="fas fa-download"></i></a></td>
+                <td>{{ i.fyletype }}</td>
+                <td><a href="{% url 'delete_mynotes' i.id %}" onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="//cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+  <script src="//cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable();
+      adjustHeight(); // Call function on page load
+      $(window).resize(adjustHeight); // Call function when window is resized
+    });
+
+    function adjustHeight() {
+      var tableHeight = $('.dataTables_scrollBody').height();
+      $('#teacherInfo').css('min-height', tableHeight + 'px');
+    }
+  </script>
+</body>
+</html>
+{% endblock %}
