@@ -1,2 +1,2 @@
-# django_project
-notes sharing app
+Notes_Sharing_App Using Django
+
